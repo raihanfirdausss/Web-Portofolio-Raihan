@@ -299,7 +299,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide testimonial-card">
                     <div class="testimonial-profile">
-                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="User">
+                        <img src="Dina.png" alt="User">
                         <div class="testimonial-info">
                             <h4>Dina Lestari</h4>
                             <p>Product Manager</p>
@@ -313,7 +313,7 @@
                 
                 <div class="swiper-slide testimonial-card" id="card-2">
                     <div class="testimonial-profile">
-                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User">
+                        <img src="Rizky.png" alt="User">
                         <div class="testimonial-info">
                             <h4>Rizky Ridho</h4>
                             <p>Owner CityTech</p>
@@ -327,7 +327,7 @@
                 
                 <div class="swiper-slide testimonial-card" id="card-3">
                     <div class="testimonial-profile">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="User">
+                        <img src="Andi.png" alt="User">
                         <div class="testimonial-info">
                             <h4>Andi Setiawan</h4>
                             <p>CEO Startup Ladangku</p>
@@ -341,7 +341,7 @@
                 
                 <div class="swiper-slide testimonial-card" id="card-4">
                     <div class="testimonial-profile">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="User">
+                        <img src="Syifa Hadju.png" alt="User">
                         <div class="testimonial-info">
                             <h4>Syifa Hadju</h4>
                             <p>Digital Marketing</p>
@@ -355,7 +355,7 @@
                 
                 <div class="swiper-slide testimonial-card" id="card-5">
                     <div class="testimonial-profile">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="User">
+                        <img src="Fajar.png" alt="User">
                         <div class="testimonial-info">
                             <h4>Fajar Harimukti</h4>
                             <p>Owner SiSatset</p>
@@ -386,33 +386,33 @@
     </script>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="Web-Portfio.js"></script>
+    <script src="Web-Portfolio.js"></script>
     
     
     <section id="kontak">
         <h2>Kontak <span>Saya</span></h2>
         <p>Memiliki Beberapa Ide Desain? Mari Diskusi!</p>
-    
-        <form action="#" method="POST">
-            <div class="form-group">
-                <input type="text" placeholder="Nama" required>
-                <input type="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="Nomor Telepon" required>
-                <select required>
-                    <option selected disabled>Jenis Desain</option>
-                    <option>Logo</option>
-                    <option>UI/UX</option>
-                    <option>Ilustrasi</option>
-                    <option>Desain Grafis</option>
-                </select>
-            </div>
-            <textarea placeholder="Pesan/Detail Projek..." required></textarea>
-    
-            <button type="submit">Kirim</button>
+      
+        <form id="formKontak" action="#" method="POST">
+          <div class="form-group">
+            <input type="text" name="nama" id="nama" placeholder="Nama" required>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input type="text" name="telepon" id="telepon" placeholder="Nomor Telepon" required>
+            <select name="jenis" id="jenis" required>
+              <option selected disabled>Jenis Desain</option>
+              <option>Logo</option>
+              <option>UI/UX</option>
+              <option>Ilustrasi</option>
+              <option>Desain Grafis</option>
+            </select>
+          </div>
+          <textarea name="pesan" id="pesan" placeholder="Pesan/Detail Projek..." required></textarea>
+      
+          <button type="submit">Kirim</button>
         </form>
-    </section>    
+    </section>     
     
     <footer class="footer">
         <div class="container">
@@ -479,5 +479,60 @@
         </div>
     </footer>
     <script src="Web-Portfolio.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#formKontak").submit(function (e) {
+        e.preventDefault(); 
+
+        $(".error").remove(); 
+        let isValid = true;
+
+        const nama = $("#nama").val().trim();
+        const email = $("#email").val().trim();
+        const telepon = $("#telepon").val().trim();
+        const jenis = $("#jenis").val();
+        const pesan = $("#pesan").val().trim();
+
+        // Validasi Nama
+        if (nama === "" || nama.length > 50) {
+            $("#nama").after("<span class='error' style='color:red;'>Nama wajib diisi (maks. 50 karakter)</span>");
+            isValid = false;
+        }
+
+        // Validasi Email
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
+        if (email === "" || !email.match(emailPattern)) {
+            $("#email").after("<span class='error' style='color:red;'>Masukkan email yang valid</span>");
+            isValid = false;
+        }
+
+        // Validasi Nomor Telepon
+        const phonePattern = /^[0-9]{10,15}$/;
+        if (telepon === "" || !telepon.match(phonePattern)) {
+            $("#telepon").after("<span class='error' style='color:red;'>Masukkan nomor valid (10-15 digit angka)</span>");
+            isValid = false;
+        }
+
+        // Validasi Jenis Desain
+        if (jenis === null || jenis === "Jenis Desain") {
+            $("#jenis").after("<span class='error' style='color:red;'>Pilih jenis desain</span>");
+            isValid = false;
+        }
+
+        // Validasi Pesan
+        if (pesan === "" || pesan.length > 200) {
+            $("#pesan").after("<span class='error' style='color:red;'>Pesan wajib diisi (maks. 200 karakter)</span>");
+            isValid = false;
+        }
+
+        if (isValid) {
+            alert("Form berhasil divalidasi!");
+            this.submit(); 
+        }
+        });
+    });
+    </script>
 </body>
 </html>
